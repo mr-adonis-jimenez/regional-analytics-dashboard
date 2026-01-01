@@ -1,5 +1,12 @@
-![npm](https://img.shields.io/npm/v/your-package-name)
-![CI](https://github.com/your-org/your-repo/actions/workflows/npm-publish.yml/badge.svg)
+## Release Pipeline
+
+- ✔ OIDC-based npm publishing (no secrets)
+- ✔ Verified supply-chain provenance
+- ✔ Automated quality gates (lint, test, audit)
+- ✔ Reusable CI workflows
+
+![npm](https://img.shields.io/npm/v/your-package)
+![CI](https://github.com/you/repo/actions/workflows/npm-publish.yml/badge.svg)
 
 # 🌎 Regional Analytics Dashboard
 
