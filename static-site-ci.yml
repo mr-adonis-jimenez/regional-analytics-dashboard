@@ -1,0 +1,24 @@
+name: Static Site CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: HTML lint
+        run: npx htmlhint "**/*.html"
+
+      - name: CSS lint
+        run: npx stylelint "**/*.css" || true
+
+      - name: JS lint
+        run: npx eslint "**/*.js" || true
