@@ -5,6 +5,18 @@
 - ✔ Automated quality gates (lint, test, audit)
 - ✔ Reusable CI workflows
 
+  ## Release & Security Architecture
+
+- Monorepo publishing with npm workspaces
+- OIDC-based trusted publishing (no secrets)
+- Canary & RC release channels
+- SBOM generation (CycloneDX)
+- CodeQL static analysis
+- Dependabot automated updates
+
+This pipeline enforces supply-chain integrity and production-grade quality gates.
+
+
 ![npm](https://img.shields.io/npm/v/your-package)
 ![CI](https://github.com/you/repo/actions/workflows/npm-publish.yml/badge.svg)
 
