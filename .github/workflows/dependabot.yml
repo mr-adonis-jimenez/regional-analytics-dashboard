@@ -1,4 +1,9 @@
-version: 2
+on:
+  push:
+    branches:
+    - main
+    - release/*
+
 updates:
   # GitHub Actions updates
   - package-ecosystem: "github-actions"
