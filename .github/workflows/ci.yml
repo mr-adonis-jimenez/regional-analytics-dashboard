@@ -1,7 +1,30 @@
+ name: CI
+
+on:
   push:
     branches:
       - main
-      - release/*
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
 
-- name: Claude Code Action Official
-  uses: anthropics/claude-code-action@v1
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
