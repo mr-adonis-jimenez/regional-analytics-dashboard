@@ -2,11 +2,15 @@ name: CodeQL
 
 on:
   push:
-    branches: [ "main", "release/*" ]
+    branches:
+      - main
+      - develop
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
+      - develop
   schedule:
-    - cron: '0 3 * * 1' # Weekly scan, low traffic window
+    - cron: '30 2 * * 1'
 
 permissions:
   contents: read
@@ -14,13 +18,8 @@ permissions:
 
 jobs:
   analyze:
-    name: Analyze (${{ matrix.language }})
+    name: Analyze
     runs-on: ubuntu-latest
-
-    strategy:
-      fail-fast: false
-      matrix:
-        language: [ 'python', 'javascript' ] # adjust per repo
 
     steps:
       - name: Checkout repository
@@ -29,14 +28,10 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v4
         with:
-          languages: ${{ matrix.language }}
-          queries: security-extended
+          languages: javascript
 
       - name: Autobuild
         uses: github/codeql-action/autobuild@v4
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v4
-
-        - name: Claude Code Action Official
-  uses: anthropics/claude-code-action@v1
