@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+set -eu
+
+# Prevent direct pushes to the protected `master` branch.
+# Install via: git config core.hooksPath scripts/git-hooks
+
+PROTECTED_REMOTE_REF="refs/heads/master"
+
+# Emergency bypass (discouraged): ALLOW_PUSH_TO_MASTER=1 git push ...
+ALLOW_PUSH_TO_MASTER="${ALLOW_PUSH_TO_MASTER:-}"
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+  if [ "$remote_ref" = "$PROTECTED_REMOTE_REF" ]; then
+    if [ "$ALLOW_PUSH_TO_MASTER" = "1" ]; then
+      exit 0
+    fi
+
+    echo "ERROR: Direct pushes to 'master' are blocked by a local git hook." >&2
+    echo "Create a feature branch and open a pull request instead." >&2
+    echo "" >&2
+    echo "If you truly need to push directly (emergency only):" >&2
+    echo "  ALLOW_PUSH_TO_MASTER=1 git push <remote> master" >&2
+    exit 1
+  fi
+done
+
+exit 0

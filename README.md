@@ -5,6 +5,10 @@
 - ✔ Automated quality gates (lint, test, audit)
 - ✔ Reusable CI workflows
 
+## Contributing / Branch protection
+
+Direct pushes to `master` should be avoided. See `CONTRIBUTING.md` to enable the repo’s `pre-push` hook that blocks direct pushes to `master` locally.
+
   ## Release & Security Architecture
 
 - Monorepo publishing with npm workspaces
