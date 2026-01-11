@@ -72,3 +72,41 @@ This dashboard is built to answer questions executives and operators actually as
 
 ---
 
+## 🚀 Quickstart (Geo Analytics API)
+
+### Run the API
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
+
+Open interactive docs at `http://localhost:8000/docs`.
+
+### Try the sample dataset
+
+```bash
+curl -s "http://localhost:8000/api/datasets" | jq
+curl -s "http://localhost:8000/api/regions" | jq
+curl -s "http://localhost:8000/api/analytics/regions?dataset_id=sample&value_col=revenue&agg=sum" | jq
+curl -s "http://localhost:8000/api/analytics/trends?dataset_id=sample&date_col=date&value_col=revenue&freq=M" | jq
+curl -s "http://localhost:8000/api/analytics/executive-summary?dataset_id=sample&metric=revenue&value_col=revenue" | jq
+```
+
+### Ingest your own dataset (JSON)
+
+```bash
+curl -s -X POST "http://localhost:8000/api/datasets/json?name=my-dataset" \
+  -H "Content-Type: application/json" \
+  -d '[{"region":"North","lat":1.0,"lon":2.0,"date":"2025-01-01","revenue":100}]' | jq
+```
+
+### Ingest your own dataset (CSV)
+
+```bash
+curl -s -X POST "http://localhost:8000/api/datasets/csv?name=my-csv" \
+  -F "file=@regional_data.csv" | jq
+```
+
