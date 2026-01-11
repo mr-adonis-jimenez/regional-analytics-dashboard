@@ -1,17 +1,13 @@
 version: 2
 
 updates:
-  # Keep GitHub Actions (including CodeQL) up to date
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
-      day: "monday"
-    open-pull-requests-limit: 5
-    labels:
-      - "dependencies"
-      - "security"
-      - "ci"
-
-      - name: Claude Code Action Official
-  uses: anthropics/claude-code-action@v1
