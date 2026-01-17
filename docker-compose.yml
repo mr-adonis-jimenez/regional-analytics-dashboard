@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: geo-analytics-api
+    ports:
+      - "8000:8000"
+    environment:
+      - ENV=development
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./:/app
+      - /app/.venv
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health').read()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Add database service if needed
+  # postgres:
+  #   image: postgres:15-alpine
+  #   container_name: geo-analytics-db
+  #   environment:
+  #     POSTGRES_DB: geoanalytics
+  #     POSTGRES_USER: geouser
+  #     POSTGRES_PASSWORD: geopass
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   restart: unless-stopped
+
+  # Optional: Add Redis for caching
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: geo-analytics-cache
+  #   ports:
+  #     - "6379:6379"
+  #   restart: unless-stopped
+
+volumes:
+  postgres_data:
